@@ -3,8 +3,9 @@ from setuptools import find_packages, setup
 base_dependencies = [
     "pandas>=1.0.0",
     "python-dateutil>=2",
-    "seaborn>0.10.0",
+    "seaborn>0.9.0",
     "rutil>=0.0.1",
+    "matplotlib>=2.2",
 ]
 
 
@@ -25,7 +26,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     author="Ismael Cabral",
-    version="0.0.1",
+    version="0.0.2",
     keywords=["matplotlib", "seaborn", "plt", "plot", "graphs", "data", "visualization", "pandas"],
     install_requires=base_dependencies,
     extras_require=additional_dependencies,
