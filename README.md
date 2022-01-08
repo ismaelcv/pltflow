@@ -62,7 +62,7 @@ Currently there are 4 predifined styles: base, vox, mkbhd, and innocent.
 <br/>
 <p align="center">
     <a>
-        <img width="50%" src="https://github.com/ismaelcv/pltflow/blob/main/images/styles_sample.png" alt="styles">
+        <img width="80%" src="https://github.com/ismaelcv/pltflow/blob/main/images/styles_sample.png" alt="styles">
     </a>
 </p>
 <br/><br/>
