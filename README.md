@@ -11,7 +11,6 @@
 You dont need to know anything about styling to make a pretty chart. But of course you can modify any parameter using matplotlib/seaborn arguments.
 <br/>
 <br/>
-<br/>
 
 
 ## ✅&nbsp; Installation
@@ -29,7 +28,6 @@ pip install pltflow
 * seaborn 0.9.0 or above
 * pandas 1.0.0 or above
 
-<br/>
 
 ## 🔨 Usage&nbsp;
 
@@ -56,21 +54,23 @@ pip install pltflow
 
 ```
 <br/>
-<br/>
 
 Currently there are 4 predifined styles: base, vox, mkbhd, and innocent.
+
+
 
 <br/>
 <p align="center">
     <a>
-        <img width="50%" src="https://github.com/ismaelcv/" alt="styles">
+        <img width="50%" src="https://github.com/ismaelcv/pltflow/blob/main/images/styles_sample.png" alt="styles">
     </a>
 </p>
 <br/><br/>
 
+
+
 <br/>
 But more are coming soon!
-<br/>
 <br/>
 <br/>
 
@@ -78,7 +78,6 @@ But more are coming soon!
 
 Feel free to **file a new issue** 📫&nbsp with a respective title and description issue on the ``pltflow`` repository: [ismaelcv](https://github.com/ismaelcv/pltflow).
 
-<br/>
 <br/>
 
 ## 📘&nbsp; License
