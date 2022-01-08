@@ -28,12 +28,12 @@ pip install pltflow
 * seaborn 0.9.0 or above
 * pandas 1.0.0 or above
 
+<br/>
 
 ## 🔨 Usage&nbsp;
 
 *``pltflow`` works with pandas dataframes as data source
 * It uses pipeline to convey the 'recipe' of the chart
-<br/>
 
  ```bash
 
@@ -62,14 +62,13 @@ Currently there are 4 predifined styles: base, vox, mkbhd, and innocent.
 <br/>
 <p align="center">
     <a>
-        <img width="80%" src="https://github.com/ismaelcv/pltflow/blob/main/images/styles_sample.png" alt="styles">
+        <img width="100%" src="https://github.com/ismaelcv/pltflow/blob/main/images/styles_sample.png" alt="styles">
     </a>
 </p>
 <br/><br/>
 
 
 
-<br/>
 But more are coming soon!
 <br/>
 <br/>
