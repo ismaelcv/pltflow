@@ -1,15 +1,13 @@
 # ``pltflow``
 
 ## What is ``pltflow``?
-<br/>
 
 * ``pltflow`` is a wrapper for matplotlib/seaborn to create beautiful charts
 * It makes use of predifined styles to completely automate the chart creation process
 * It also uses the concept of pipelines to create charts as if one is following a recipe
 
-``pltflow`` is not intended for complex plot, but to prvide a quick and clean way to create beautiful plots.
+``pltflow`` is not intended for complex plots, but to make beautiful plots in a quick and clean way.
 You dont need to know anything about styling to make a pretty chart. But of course you can modify any parameter using matplotlib/seaborn arguments.
-<br/>
 <br/>
 
 
@@ -58,19 +56,12 @@ pip install pltflow
 Currently there are 4 predifined styles: base, vox, mkbhd, and innocent.
 
 
+![styles](https://github.com/ismaelcv/pltflow/blob/main/images/styles_sample.png?raw=true)
 
-<br/>
-<p align="center">
-    <a>
-        <img width="100%" src="https://github.com/ismaelcv/pltflow/blob/main/images/styles_sample.png" alt="styles">
-    </a>
-</p>
-<br/><br/>
 
 
 
 But more are coming soon!
-<br/>
 <br/>
 
 ## 🐜 &nbsp; Found a bug? Missing a specific feature?

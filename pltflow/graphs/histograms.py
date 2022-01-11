@@ -1,65 +1,82 @@
-from __future__ import annotations
+from __future__ import annotations  # To be able to do type annotations
 
-from typing import Union
+from typing import Optional, Union
 
+import numpy as np
 import pandas as pd
+from base_chart import chart
 from matplotlib import pyplot as plt
+from utils.data_checks import check_array_is_numeric
 
-from pltflow.graphs.base_chart import chart
 from pltflow.utils.preprocess import set_main_categories
 from pltflow.utils.styling import load_style
 
 
-class plot(chart):
+class hist(chart):
 
     """
-    Generic class to genererate a plt graph
+    Generic class to genererate an histogram in style
     """
 
-    def __init__(self, df: pd.DataFrame, x: str, y: str, style: str = "base", mode: str = "both") -> None:
+    def __init__(
+        self,
+        data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
+        x: Optional[str] = "",
+        style: str = "base",
+        mode: str = "line",
+    ) -> None:
 
         self.rcParams, self.styleParams, self.colors = load_style(style)
 
         plt.rcParams.update(plt.rcParamsDefault)
 
-        self.df = df
-        self.x = x
-        self.y = y
+        if isinstance(data, pd.DataFrame):
+            self.df = data
+            self.x = x
+
+            if self.x == "":
+                raise ValueError("x must be a name of a column in the dataframe")
+
+            self.set_xlabel(self.x)  # type: ignore
+
+        else:
+            check_array_is_numeric(data)
+            self.df = data
+            self.x = "x"
+            self.set_xlabel("")
+
         self._set_mode(mode)
-        self.set_xlabel(self.x)
-        self.set_ylabel(self.y)
+        self.set_ylabel("frecuency")
         self.set_figsize()
         self.z = ""  # type: str
         self.main_categories = []  # type: list
 
-    def _set_mode(self, mode: str) -> None:
+    def _set_mode(self, mode: str) -> hist:
 
-        if mode in ["both", "scatter", "line"]:
+        if mode in ["both", "bars", "line"]:
             self.mode = mode
         else:
-            raise ValueError("mode must be either 'both', 'scatter' or 'line'")
+            raise ValueError("mode must be either 'both', 'bars' or 'line'")
 
-    def color_by(self, column_name: str) -> plot:
+        return self
+
+    def color_by(self, column_name: str) -> hist:
         """
         Set the color for the plot.
         """
+        if not isinstance(self.df, pd.DataFrame):
+            raise ValueError("color_by() can only be used with a dataframe as data source")
 
         self.main_categories = set_main_categories(self.df, column_name, self.main_categories)
         self.z = column_name
+
         return self
 
-    def focus_on(self, category: Union[str, list]) -> plot:
+    def focus_on(self, category: Union[str, list]) -> hist:
         """
         Set the main category for the plot.
-        """
 
-        if self.z == "":
-            raise ValueError(
-                """
-                No column to split on selected (z)
-                Please select a column with .color_by("column_name ")
-                """
-            )
+        """
 
         all_cats_available = list(self.df[self.z].unique())
 
@@ -105,9 +122,9 @@ class plot(chart):
 
         if len(categories) <= 1:
             color = self.colors["1cat"]
-            plt.plot(self.df[self.x], self.df[self.y], color=color, **self.styleParams["line_style"])
+            plt.plot(self.df[self.x], self.df[self.y], color=color, **self.style["line_style"])
             plt.scatter(
-                self.df[self.x], self.df[self.y], color=color, **self.styleParams["scatter_style"], marker="s"
+                self.df[self.x], self.df[self.y], color=color, **self.style["scatter_style"], marker="s"
             )
 
         else:
@@ -126,7 +143,7 @@ class plot(chart):
                             x_axis,
                             y_axis,
                             color=self.colors["grayed"],
-                            **self.styleParams["lineshadow_style"],
+                            **self.style["lineshadow_style"],
                         )
 
                     else:
@@ -135,7 +152,7 @@ class plot(chart):
                             x_axis,
                             y_axis,
                             color=self.colors["grayed"],
-                            **self.styleParams["scattershadow_style"],
+                            **self.style["scattershadow_style"],
                         )
 
             for i, category in enumerate(self.main_categories):
@@ -149,9 +166,9 @@ class plot(chart):
                 y_axis = self.df[self.y][self.df[self.z] == category]
 
                 if self.mode in ["line", "both"]:
-                    plt.plot(x_axis, y_axis, color=color, **self.styleParams["line_style"])
+                    plt.plot(x_axis, y_axis, color=color, **self.style["line_style"])
                 if self.mode in ["scatter", "both"]:
-                    plt.scatter(x_axis, y_axis, color=color, **self.styleParams["scatter_style"])
+                    plt.scatter(x_axis, y_axis, color=color, **self.style["scatter_style"])
 
         plt.ylabel(**self.styleParams["ylabel"])
         plt.xlabel(**self.styleParams["xlabel"])

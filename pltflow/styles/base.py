@@ -33,18 +33,6 @@ style = {
         "savefig.facecolor": "white",
         "savefig.edgecolor": "white",
     },
-    "scatter_style": {
-        "s": 40,
-    },
-    "line_style": {
-        "linewidth": 1.5,
-    },
-    "lineshadow_style": {
-        "linewidth": 1,
-    },
-    "scattershadow_style": {
-        "s": 40,
-    },
     "styleParams": {
         "xticks": {"fontsize": 11, "fontname": MAIN_FONT},
         "yticks": {"fontsize": 11, "fontname": MAIN_FONT},
@@ -73,6 +61,18 @@ style = {
             "xy": (0.00, 1.09),
             "xycoords": "axes fraction",
             "fontname": MAIN_FONT,
+        },
+        "scatter_style": {
+            "s": 40,
+        },
+        "line_style": {
+            "linewidth": 1.5,
+        },
+        "lineshadow_style": {
+            "linewidth": 1,
+        },
+        "scattershadow_style": {
+            "s": 40,
         },
     },
     "colors": {"1cat": "tab:blue", "ncats": plt_tab_colors, "grayed": "lightgray"},

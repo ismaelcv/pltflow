@@ -29,19 +29,6 @@ style = {
         "savefig.facecolor": "black",
         "savefig.edgecolor": "black",
     },
-    "scatter_style": {
-        "s": 30,
-        "marker": "s",
-    },
-    "line_style": {
-        "linewidth": 2,
-    },
-    "scattershadow_style": {
-        "s": 30,
-    },
-    "lineshadow_style": {
-        "linewidth": 2,
-    },
     "styleParams": {
         "xticks": {"fontsize": 11, "fontweight": "bold"},
         "yticks": {"fontsize": 11, "fontweight": "bold"},
@@ -59,6 +46,19 @@ style = {
             "fontsize": 14,
             "xy": (0.00, 1.095),
             "xycoords": "axes fraction",
+        },
+        "scatter_style": {
+            "s": 30,
+            "marker": "s",
+        },
+        "line_style": {
+            "linewidth": 2,
+        },
+        "scattershadow_style": {
+            "s": 30,
+        },
+        "lineshadow_style": {
+            "linewidth": 2,
         },
     },
     "colors": {"1cat": "#aed7eb", "ncats": plt_tab_colors, "grayed": "#566a6b"},

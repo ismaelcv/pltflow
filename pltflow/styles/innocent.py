@@ -36,18 +36,6 @@ style = {
         "savefig.facecolor": "white",
         "savefig.edgecolor": "white",
     },
-    "lineshadow_style": {
-        "linewidth": 1,
-    },
-    "scattershadow_style": {
-        "s": 20,
-    },
-    "scatter_style": {
-        "s": 20,
-    },
-    "line_style": {
-        "linewidth": 1.2,
-    },
     "styleParams": {
         "xticks": {"fontsize": 13, "fontweight": "normal", "fontname": MAIN_FONT},
         "yticks": {"fontsize": 13, "fontweight": "normal", "fontname": MAIN_FONT},
@@ -66,6 +54,18 @@ style = {
             "xy": (0.00, 1.09),
             "xycoords": "axes fraction",
             "fontname": "monofur for powerline",
+        },
+        "lineshadow_style": {
+            "linewidth": 1,
+        },
+        "scattershadow_style": {
+            "s": 20,
+        },
+        "scatter_style": {
+            "s": 20,
+        },
+        "line_style": {
+            "linewidth": 1.2,
         },
     },
     "colors": {"1cat": "#244796", "ncats": plt_tab_colors, "grayed": "#9c9b92"},

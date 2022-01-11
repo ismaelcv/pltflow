@@ -4,16 +4,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.figure import Figure
-from skeleton.wrangling.grouping import ratio_per_category
+
+from pltflow.wrangling.grouping import ratio_per_category
 
 
-def plot_percentage_per_subcategory(
-    df: pd.DataFrame, primary: str, secondary: str
-) -> Tuple[Figure, plt.Axes]:
+def stacked_bars(df: pd.DataFrame, primary: str, secondary: str) -> Tuple[Figure, plt.Axes]:
     """
     Parameters
     ----------
-    df : A pivoted dataframe with primary category as row index
+    df : A dataframe with primary category as row index
          and secondary category as row columns
     primary: name of the main category in the dataframe
     secondary: name of the category to aggregate in the dataframe
