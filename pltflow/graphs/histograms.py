@@ -8,9 +8,6 @@ from base_chart import chart
 from matplotlib import pyplot as plt
 from utils.data_checks import check_array_is_numeric
 
-from pltflow.utils.preprocess import set_main_categories
-from pltflow.utils.styling import load_style
-
 
 class hist(chart):
 
@@ -18,38 +15,38 @@ class hist(chart):
     Generic class to genererate an histogram in style
     """
 
-    def __init__(
-        self,
-        data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
-        x: Optional[str] = "",
-        style: str = "base",
-        mode: str = "line",
-    ) -> None:
+    # def __init__(
+    #     self,
+    #     data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
+    #     x: Optional[str] = "",
+    #     style: str = "base",
+    #     mode: str = "line",
+    # ) -> None:
 
-        self.rcParams, self.styleParams, self.colors = load_style(style)
+    #     self.rcParams, self.styleParams, self.colors = load_style(style)
 
-        plt.rcParams.update(plt.rcParamsDefault)
+    #     plt.rcParams.update(plt.rcParamsDefault)
 
-        if isinstance(data, pd.DataFrame):
-            self.df = data
-            self.x = x
+    #     if isinstance(data, pd.DataFrame):
+    #         self.df = data
+    #         self.x = x
 
-            if self.x == "":
-                raise ValueError("x must be a name of a column in the dataframe")
+    #         if self.x == "":
+    #             raise ValueError("x must be a name of a column in the dataframe")
 
-            self.set_xlabel(self.x)  # type: ignore
+    #         self.set_xlabel(self.x)  # type: ignore
 
-        else:
-            check_array_is_numeric(data)
-            self.df = data
-            self.x = "x"
-            self.set_xlabel("")
+    #     else:
+    #         check_array_is_numeric(data)
+    #         self.df = data
+    #         self.x = "x"
+    #         self.set_xlabel("")
 
-        self._set_mode(mode)
-        self.set_ylabel("frecuency")
-        self.set_figsize()
-        self.z = ""  # type: str
-        self.main_categories = []  # type: list
+    #     self._set_mode(mode)
+    #     self.set_ylabel("frecuency")
+    #     self.set_figsize()
+    #     self.z = ""  # type: str
+    #     self.main_categories = []  # type: list
 
     def _set_mode(self, mode: str) -> hist:
 
@@ -57,55 +54,6 @@ class hist(chart):
             self.mode = mode
         else:
             raise ValueError("mode must be either 'both', 'bars' or 'line'")
-
-        return self
-
-    def color_by(self, column_name: str) -> hist:
-        """
-        Set the color for the plot.
-        """
-        if not isinstance(self.df, pd.DataFrame):
-            raise ValueError("color_by() can only be used with a dataframe as data source")
-
-        self.main_categories = set_main_categories(self.df, column_name, self.main_categories)
-        self.z = column_name
-
-        return self
-
-    def focus_on(self, category: Union[str, list]) -> hist:
-        """
-        Set the main category for the plot.
-
-        """
-
-        all_cats_available = list(self.df[self.z].unique())
-
-        if self.main_categories == all_cats_available:
-            self.main_categories = []
-
-        if isinstance(category, str):
-
-            if category not in all_cats_available:
-                raise ValueError(
-                    f"{category} is not included on the main categories avalable in the {self.z} column"
-                )
-            self.main_categories.append(category)
-
-        elif isinstance(category, list):
-
-            invalid_categories = []
-            for requested_cat in category:
-                if requested_cat not in all_cats_available:
-                    invalid_categories.append(requested_cat)
-
-            if len(invalid_categories) > 0:
-                raise ValueError(
-                    f"{invalid_categories} does not form part of the available categories of  the column {self.x}"
-                )
-
-            self.main_categories.append(category)
-
-        self.main_categories = list(pd.Series(self.main_categories).unique())
 
         return self
 
