@@ -4,6 +4,8 @@ from typing import Tuple
 
 def load_style(style: str) -> Tuple[dict, dict, dict]:
 
+    importlib.invalidate_caches()
+
     try:
         style_module = importlib.import_module(f"pltflow.styles.{style}").style  # type: ignore
     except ModuleNotFoundError as no_module_with_that_name:

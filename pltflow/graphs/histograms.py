@@ -4,9 +4,11 @@ from typing import Optional, Union
 
 import numpy as np
 import pandas as pd
-from base_chart import chart
+import seaborn as sns
 from matplotlib import pyplot as plt
-from utils.data_checks import check_array_is_numeric
+
+from pltflow.graphs.base_chart import chart
+from pltflow.utils.data_checks import check_array_is_numeric
 
 
 class hist(chart):
@@ -15,125 +17,83 @@ class hist(chart):
     Generic class to genererate an histogram in style
     """
 
-    # def __init__(
-    #     self,
-    #     data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
-    #     x: Optional[str] = "",
-    #     style: str = "base",
-    #     mode: str = "line",
-    # ) -> None:
+    def set_parameters(
+        self,
+        data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
+        x: Optional[str],
+        y: Optional[str],
+    ) -> None:
+        """
+        This parameters are set for the case of scatterplots.
+        In this mode the only valid input is a dataframe
+        """
 
-    #     self.rcParams, self.styleParams, self.colors = load_style(style)
-
-    #     plt.rcParams.update(plt.rcParamsDefault)
-
-    #     if isinstance(data, pd.DataFrame):
-    #         self.df = data
-    #         self.x = x
-
-    #         if self.x == "":
-    #             raise ValueError("x must be a name of a column in the dataframe")
-
-    #         self.set_xlabel(self.x)  # type: ignore
-
-    #     else:
-    #         check_array_is_numeric(data)
-    #         self.df = data
-    #         self.x = "x"
-    #         self.set_xlabel("")
-
-    #     self._set_mode(mode)
-    #     self.set_ylabel("frecuency")
-    #     self.set_figsize()
-    #     self.z = ""  # type: str
-    #     self.main_categories = []  # type: list
-
-    def _set_mode(self, mode: str) -> hist:
-
-        if mode in ["both", "bars", "line"]:
-            self.mode = mode
+        if isinstance(data, pd.DataFrame):
+            self.df = data
+            if x in self.df.columns:
+                self.x = x
+                self.set_xlabel(x)
+            else:
+                raise ValueError("X should be a valid column name")
         else:
-            raise ValueError("mode must be either 'both', 'bars' or 'line'")
+            check_array_is_numeric(data)
+            self.df = pd.DataFrame({"x": data})
+            self.x = "x"
+            self.set_xlabel("")
 
-        return self
+        self.y = ""
+        self.set_ylabel(self.y)
+        self.set_title("")
+        self.set_subtitle("")
+
+    def _set_mode(self, mode: str) -> None:
+        """
+        default: "hist"
+        kde: "Kernell density estimator"
+        """
+
+        if mode in ["default", "hist"]:
+            mode = "hist"
+            self.set_ylabel("frecuency")
+        elif mode in ["kde"]:
+            self.set_ylabel("density")
+        else:
+            raise ValueError("mode must be either 'default' (hist)' or 'kde'")
+
+        self.mode = mode
+
+    def plot_one_category(self) -> None:
+
+        # color = self.colors["1cat"]
+
+        height = self.rcParams["figure.figsize"][1]
+        aspect = self.rcParams["figure.figsize"][0] / height
+
+        if self.mode in ["kde", "default", "hist"]:
+
+            sns.displot(
+                self.df,
+                x=self.x,
+                height=height,
+                aspect=aspect,
+                kind=self.mode,
+                bins=40,
+            )  # ,", color="lightgray", alpha=0.4, fill=True, linewidth=0)
 
     def show(self) -> None:
 
         plt.rcParams.update(self.rcParams)
 
-        if self.z != "":
-            categories = self.df[self.z].unique().tolist()
-            if len(categories) == 0:
-                raise ValueError("No categories found: Length of categories is 0")
-        else:
-            categories = []
+        categories = self.get_hue_categories()
 
         if len(categories) <= 1:
-            color = self.colors["1cat"]
-            plt.plot(self.df[self.x], self.df[self.y], color=color, **self.style["line_style"])
-            plt.scatter(
-                self.df[self.x], self.df[self.y], color=color, **self.style["scatter_style"], marker="s"
-            )
+            self.plot_one_category()
 
-        else:
-            colors = self.colors["ncats"]
+        # else:
+        #     self.plot_grayed_categories(categories)
+        #     self.plot_multiple_categories(categories)
 
-            for category in categories:
-
-                if category not in self.main_categories:
-
-                    x_axis = self.df[self.x][self.df[self.z] == category]
-                    y_axis = self.df[self.y][self.df[self.z] == category]
-
-                    if self.mode in ["line", "both"]:
-
-                        plt.plot(
-                            x_axis,
-                            y_axis,
-                            color=self.colors["grayed"],
-                            **self.style["lineshadow_style"],
-                        )
-
-                    else:
-
-                        plt.scatter(
-                            x_axis,
-                            y_axis,
-                            color=self.colors["grayed"],
-                            **self.style["scattershadow_style"],
-                        )
-
-            for i, category in enumerate(self.main_categories):
-
-                if len(self.main_categories) == 1:
-                    color = self.colors["1cat"]
-                else:
-                    color = colors[i % len(colors)]
-
-                x_axis = self.df[self.x][self.df[self.z] == category]
-                y_axis = self.df[self.y][self.df[self.z] == category]
-
-                if self.mode in ["line", "both"]:
-                    plt.plot(x_axis, y_axis, color=color, **self.style["line_style"])
-                if self.mode in ["scatter", "both"]:
-                    plt.scatter(x_axis, y_axis, color=color, **self.style["scatter_style"])
-
-        plt.ylabel(**self.styleParams["ylabel"])
-        plt.xlabel(**self.styleParams["xlabel"])
-
-        # plt.title(**PARAMS["title"])
-
-        # Dirty Trick to extend the plot to the right in Jupyter notebooks
-        plt.text(1, 1.09, "t", transform=plt.gcf().transFigure, color=self.rcParams["figure.facecolor"])
-        plt.text(-0.05, -0.1, "t", transform=plt.gcf().transFigure, color=self.rcParams["figure.facecolor"])
-
-        if "text" in self.styleParams["title"]:
-            plt.annotate(**self.styleParams["title"])
-
-        if "text" in self.styleParams["subtitle"]:
-            plt.annotate(**self.styleParams["subtitle"])
-
-        plt.xticks(**self.styleParams["xticks"])
-        plt.yticks(**self.styleParams["yticks"])
+        self.display_chart_annotations()
+        self.plot_padding((1.02, 1.2), (-0.01, -0.0))
 
         plt.show()

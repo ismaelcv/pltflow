@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, Union
+from typing import List, Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -16,16 +16,19 @@ class chart:
         x: Optional[str] = "",
         y: Optional[str] = "",
         style: str = "base",
+        mode: str = "default",
     ) -> None:
 
         self.rcParams, self.styleParams, self.colors = load_style(style)
+
         plt.rcParams.update(plt.rcParamsDefault)
         self.set_figsize()
 
         self.set_parameters(data, x, y)
+
         self.z = ""  # type: str
         self.main_categories = []  # type: list
-        self.mode = "default"  # type: str
+        self._set_mode(mode)
 
     def set_parameters(
         self,
@@ -41,7 +44,7 @@ class chart:
         if isinstance(data, pd.DataFrame):
             self.df = data
         else:
-            raise ValueError("color_by() can only be used with a dataframe as data source")
+            raise ValueError("data must be a dataframe")
 
         if x in self.df.columns:
             self.x = x
@@ -56,7 +59,7 @@ class chart:
         self.set_xlabel(x)
         self.set_ylabel(y)
 
-    def set_mode(self, mode: str) -> None:
+    def _set_mode(self, mode: str) -> None:
 
         if mode in ["default", "scatter", "line"]:
             self.mode = mode
@@ -73,14 +76,13 @@ class chart:
 
     def set_ylabel(self, label: Optional[str], **kwargs: dict) -> chart:
 
-        if label not in ("", None):
-            self.styleParams["ylabel"] = {**self.styleParams["ylabel"], **{"ylabel": label}, **kwargs}
+        self.styleParams["ylabel"] = {**self.styleParams["ylabel"], **{"ylabel": label}, **kwargs}
         return self
 
     def set_xlabel(self, label: Optional[str], **kwargs: dict) -> chart:
 
-        if label not in ("", None):
-            self.styleParams["xlabel"] = {**self.styleParams["xlabel"], **{"xlabel": label}, **kwargs}
+        self.styleParams["xlabel"] = {**self.styleParams["xlabel"], **{"xlabel": label}, **kwargs}
+
         return self
 
     def set_title(self, title: str, **kwargs: dict) -> chart:
@@ -170,3 +172,54 @@ class chart:
         self.main_categories = list(pd.Series(self.main_categories).unique())
 
         return self
+
+    def display_chart_annotations(self) -> None:
+        """
+        Add a title and a subtitle to the plot.
+        """
+        if "text" in self.styleParams["title"]:
+            plt.annotate(**self.styleParams["title"])
+
+        if "text" in self.styleParams["subtitle"]:
+            plt.annotate(**self.styleParams["subtitle"])
+
+        plt.xlabel(**self.styleParams["xlabel"])
+        plt.ylabel(**self.styleParams["ylabel"])
+
+        plt.xticks(**self.styleParams["xticks"])
+        plt.yticks(**self.styleParams["yticks"])
+
+    def get_hue_categories(self) -> List[str]:
+
+        if self.z != "":
+            categories = self.df[self.z].unique().tolist()
+            if len(categories) == 0:
+                raise ValueError("No categories found: The column is empty")
+            if len(categories) > 15:
+                raise ValueError(
+                    """
+                        Too many categories: The column has more than 15 categories
+                        Which will yield in an unclear graph.
+                        """
+                )
+        else:
+            categories = []
+
+        return categories
+
+    def plot_padding(self, up: tuple = (1, 1), down: tuple = (0, 0)) -> None:
+        """
+        This is a Dirty Trick to extend the plot to the right in Jupyter notebooks
+        """
+        plt.text(
+            *up,
+            "t",
+            transform=plt.gcf().transFigure,
+            color=self.rcParams["figure.facecolor"],
+        )
+        plt.text(
+            *down,
+            "t",
+            transform=plt.gcf().transFigure,
+            color=self.rcParams["figure.facecolor"],
+        )
