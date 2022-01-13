@@ -20,8 +20,8 @@ class hist(chart):
     def set_parameters(
         self,
         data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
-        x: Optional[str],
-        y: Optional[str],
+        x: str,
+        y: str,
     ) -> None:
         """
         This parameters are set for the case of scatterplots.
@@ -43,8 +43,6 @@ class hist(chart):
 
         self.y = ""
         self.set_ylabel(self.y)
-        self.set_title("")
-        self.set_subtitle("")
 
     def _set_mode(self, mode: str) -> None:
         """
@@ -64,21 +62,21 @@ class hist(chart):
 
     def plot_one_category(self) -> None:
 
-        # color = self.colors["1cat"]
+        color = self.colors["hist"]["1cat"]
 
         height = self.rcParams["figure.figsize"][1]
         aspect = self.rcParams["figure.figsize"][0] / height
 
-        if self.mode in ["kde", "default", "hist"]:
 
-            sns.displot(
-                self.df,
-                x=self.x,
-                height=height,
-                aspect=aspect,
-                kind=self.mode,
-                bins=40,
-            )  # ,", color="lightgray", alpha=0.4, fill=True, linewidth=0)
+        sns.displot(
+            self.df,
+            x=self.x,
+            height=height,
+            aspect=aspect,
+            kind=self.mode,
+            color=color,
+            **self.styleParams["hist"][self.mode],
+        )
 
     def show(self) -> None:
 

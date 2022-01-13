@@ -38,28 +38,24 @@ style = {
             "fontsize": 18,
             "color": "white",
             "fontweight": "bold",
-            "xy": (0.00, 1.16),
+            "xy": (0.00, 1.22),
             "xycoords": "axes fraction",
         },
         "subtitle": {
             "color": "white",
             "fontsize": 14,
-            "xy": (0.00, 1.095),
+            "xy": (0.00, 1.14),
             "xycoords": "axes fraction",
         },
-        "scatter_style": {
-            "s": 30,
-            "marker": "s",
-        },
-        "line_style": {
-            "linewidth": 2,
-        },
-        "scattershadow_style": {
-            "s": 30,
-        },
-        "lineshadow_style": {
-            "linewidth": 2,
+        "scatter_style": {"s": 30},
+        "line_style": {"linewidth": 2},
+        "hist": {
+            "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.7},
+            "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.7},
         },
     },
-    "colors": {"1cat": "#aed7eb", "ncats": plt_tab_colors, "grayed": "#566a6b"},
+    "colors": {
+        "plot": {"1cat": "#aed7eb", "ncats": plt_tab_colors, "grayed": "#566a6b"},
+        "hist": {"1cat": "white", "ncats": plt_tab_colors, "grayed": "#566a6b"},
+    },
 }

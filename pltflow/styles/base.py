@@ -62,18 +62,8 @@ style = {
             "xycoords": "axes fraction",
             "fontname": MAIN_FONT,
         },
-        "scatter_style": {
-            "s": 40,
-        },
-        "line_style": {
-            "linewidth": 1.5,
-        },
-        "lineshadow_style": {
-            "linewidth": 1,
-        },
-        "scattershadow_style": {
-            "s": 40,
-        },
+        "scatter_style": {"s": 40},
+        "line_style": {"linewidth": 1},
     },
     "colors": {"1cat": "tab:blue", "ncats": plt_tab_colors, "grayed": "lightgray"},
 }

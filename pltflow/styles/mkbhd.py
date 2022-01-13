@@ -58,18 +58,8 @@ style = {
             "xy": (0.00, 1.085),
             "xycoords": "axes fraction",
         },
-        "scatter_style": {
-            "s": 30,
-        },
-        "line_style": {
-            "linewidth": 1.5,
-        },
-        "scattershadow_style": {
-            "s": 30,
-        },
-        "lineshadow_style": {
-            "linewidth": 1,
-        },
+        "scatter_style": {"s": 30},
+        "line_style": {"linewidth": 1.5},
     },
     "colors": {"1cat": "red", "ncats": plt_tab_colors, "grayed": "lightgray"},
 }

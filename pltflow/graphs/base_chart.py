@@ -13,8 +13,8 @@ class chart:
     def __init__(
         self,
         data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
-        x: Optional[str] = "",
-        y: Optional[str] = "",
+        x: str = "",
+        y: str = "",
         style: str = "base",
         mode: str = "default",
     ) -> None:
@@ -24,17 +24,22 @@ class chart:
         plt.rcParams.update(plt.rcParamsDefault)
         self.set_figsize()
 
+        self.caps = False
+
         self.set_parameters(data, x, y)
 
         self.z = ""  # type: str
         self.main_categories = []  # type: list
         self._set_mode(mode)
 
+        self.set_title("")
+        self.set_subtitle("")
+
     def set_parameters(
         self,
         data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
-        x: Optional[str],
-        y: Optional[str],
+        x: str,
+        y: str,
     ) -> None:
         """
         This parameters are set for the case of scatterplots.
@@ -59,6 +64,14 @@ class chart:
         self.set_xlabel(x)
         self.set_ylabel(y)
 
+    def upper(self, caps: bool = True) -> chart:
+        """
+        Set the title and the subtitle to upper case.
+        """
+        self.caps = caps
+
+        return self
+
     def _set_mode(self, mode: str) -> None:
 
         if mode in ["default", "scatter", "line"]:
@@ -74,12 +87,16 @@ class chart:
         self.styleParams["xticks"] = {**self.styleParams["xticks"], **{"ticks": positions}, **kwargs}
         return self
 
-    def set_ylabel(self, label: Optional[str], **kwargs: dict) -> chart:
+    def set_ylabel(self, label: str, **kwargs: dict) -> chart:
 
-        self.styleParams["ylabel"] = {**self.styleParams["ylabel"], **{"ylabel": label}, **kwargs}
+        self.styleParams["ylabel"] = {
+            **self.styleParams["ylabel"],
+            **{"ylabel": label},
+            **kwargs,
+        }
         return self
 
-    def set_xlabel(self, label: Optional[str], **kwargs: dict) -> chart:
+    def set_xlabel(self, label: str, **kwargs: dict) -> chart:
 
         self.styleParams["xlabel"] = {**self.styleParams["xlabel"], **{"xlabel": label}, **kwargs}
 
@@ -177,6 +194,13 @@ class chart:
         """
         Add a title and a subtitle to the plot.
         """
+
+        if self.caps:
+            self.styleParams["xlabel"]["xlabel"] = self.styleParams["xlabel"]["xlabel"].upper()
+            self.styleParams["ylabel"]["ylabel"] = self.styleParams["ylabel"]["ylabel"].upper()
+            self.styleParams["title"]["text"] = self.styleParams["title"]["text"].upper()
+            self.styleParams["subtitle"]["text"] = self.styleParams["subtitle"]["text"].upper()
+
         if "text" in self.styleParams["title"]:
             plt.annotate(**self.styleParams["title"])
 
