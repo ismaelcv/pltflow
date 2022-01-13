@@ -1,9 +1,9 @@
 plt_tab_colors = [
-    "tab:red",
     "tab:blue",
+    "tab:olive",
+    "tab:red",
     "tab:green",
     "tab:orange",
-    "tab:olive",
     "tab:pink",
     "tab:purple",
     "tab:brown",

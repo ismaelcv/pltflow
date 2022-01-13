@@ -1,6 +1,6 @@
 from __future__ import annotations  # To be able to do type annotations
 
-from typing import Optional, Union
+from typing import Union
 
 import numpy as np
 import pandas as pd
@@ -9,6 +9,7 @@ from matplotlib import pyplot as plt
 
 from pltflow.graphs.base_chart import chart
 from pltflow.utils.data_checks import check_array_is_numeric
+from pltflow.utils.styling import create_legend_patches
 
 
 class hist(chart):
@@ -61,12 +62,9 @@ class hist(chart):
         self.mode = mode
 
     def plot_one_category(self) -> None:
-
-        color = self.colors["hist"]["1cat"]
-
         height = self.rcParams["figure.figsize"][1]
         aspect = self.rcParams["figure.figsize"][0] / height
-
+        color = self.colors["hist"]["1cat"]
 
         sns.displot(
             self.df,
@@ -78,6 +76,39 @@ class hist(chart):
             **self.styleParams["hist"][self.mode],
         )
 
+    def plot_multiple_categories(self, categories: list) -> None:
+
+        colors = self.colors["hist"]["ncats"]
+        height = self.rcParams["figure.figsize"][1]
+        aspect = self.rcParams["figure.figsize"][0] / height
+
+        i = 0
+        color_assigment = []
+
+        for category in categories:
+            if category in self.main_categories:
+                color_assigment += [colors[i % len(colors)]]
+                i += 1
+            else:
+                color_assigment += [self.colors["hist"]["grayed"]]
+
+        palette = dict(zip(categories, color_assigment))
+
+        sns.displot(
+            self.df,
+            x=self.x,
+            hue=self.z,
+            height=height,
+            aspect=aspect,
+            kind=self.mode,
+            palette=palette,
+            legend=False,
+            **self.styleParams["hist"][self.mode],
+        )
+
+        patches = create_legend_patches(palette)
+        plt.legend(handles=patches, loc="best")
+
     def show(self) -> None:
 
         plt.rcParams.update(self.rcParams)
@@ -87,9 +118,8 @@ class hist(chart):
         if len(categories) <= 1:
             self.plot_one_category()
 
-        # else:
-        #     self.plot_grayed_categories(categories)
-        #     self.plot_multiple_categories(categories)
+        else:
+            self.plot_multiple_categories(categories)
 
         self.display_chart_annotations()
         self.plot_padding((1.02, 1.2), (-0.01, -0.0))

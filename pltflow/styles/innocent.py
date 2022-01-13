@@ -56,7 +56,7 @@ style = {
             "fontname": "monofur for powerline",
         },
         "scatter_style": {"s": 20},
-        "line_style": { "linewidth": 1.2},
+        "line_style": {"linewidth": 1.2},
     },
     "colors": {"1cat": "#244796", "ncats": plt_tab_colors, "grayed": "#9c9b92"},
 }

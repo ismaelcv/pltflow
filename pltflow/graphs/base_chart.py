@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Optional, Union
+from typing import List, Union
 
 import numpy as np
 import pandas as pd
@@ -17,6 +17,7 @@ class chart:
         y: str = "",
         style: str = "base",
         mode: str = "default",
+        **kwargs: dict,
     ) -> None:
 
         self.rcParams, self.styleParams, self.colors = load_style(style)
@@ -34,6 +35,13 @@ class chart:
 
         self.set_title("")
         self.set_subtitle("")
+
+        self.set_kwargs(**kwargs)
+
+    def set_kwargs(self, **kwargs: dict) -> None:
+
+        instance = self.__class__.__name__
+        self.styleParams[instance][self.mode] = {**self.styleParams[instance][self.mode], **kwargs}
 
     def set_parameters(
         self,
