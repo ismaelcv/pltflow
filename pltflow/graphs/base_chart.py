@@ -46,7 +46,7 @@ class chart:
 
     def set_kwargs(self, **kwargs: dict) -> None:
 
-        instance = self.__class__.__name__
+        instance = self.__class__.__name__.split("_")[0]
         self.styleParams[instance][self.mode] = {**self.styleParams[instance][self.mode], **kwargs}
 
     def prepare_data(

@@ -111,3 +111,51 @@ class hist(chart):
         self.plot_padding((1.02, 1.2), (-0.01, -0.0))
 
         plt.show()
+
+
+class hist_tabular(hist):
+
+    """
+    Generic class to genererate an histogram in style
+    """
+
+    def __init__(
+        self,
+        data: pd.DataFrame,
+        x: Union[str, list],
+        style: str = "base",
+        mode: str = "hist",
+        **kwargs: dict,
+    ) -> None:
+
+        # This function includes initialization common for all the clases
+        self.initialize_plot_parameters(mode, style, kwargs)
+
+        # Initialize the plot for the specific class
+        self.prepare_data(data, x)
+
+    def prepare_data(
+        self,
+        data: pd.DataFrame,
+        x: Union[str, list],
+        y: str = "",
+    ) -> None:
+        """
+        This parameters are set for the case of scatterplots.
+        In this mode the only valid input is a dataframe
+        """
+
+        if isinstance(x, list):
+            self.df = data.loc[:, x].melt(var_name="_key", value_name="_value")
+
+            self.x = "_value"
+            self.color_by("_key")
+            self.set_xlabel("")
+
+        else:
+            self.df = pd.DataFrame({"x": data[x]})
+            self.x = "x"
+            self.set_xlabel("")
+
+        self.y = ""
+        self.set_ylabel(self.y)

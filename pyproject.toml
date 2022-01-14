@@ -21,6 +21,8 @@ disable = [
      "too-many-locals",
      "R1729",
      "too-many-instance-attributes",
+     "super-init-not-called",
+     "attribute-defined-outside-init",
 ]
 
 [tool.pylint.typecheck]
