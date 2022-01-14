@@ -255,3 +255,21 @@ class chart:
             transform=plt.gcf().transFigure,
             color=self.rcParams["figure.facecolor"],
         )
+
+    def create_palette(self, categories: list) -> dict:
+
+        colors = self.colors["hist"]["ncats"]
+
+        i = 0
+        color_assigment = []
+
+        for category in categories:
+            if category in self.main_categories:
+                color_assigment += [colors[i % len(colors)]]
+                i += 1
+            else:
+                color_assigment += [self.colors["hist"]["grayed"]]
+
+        palette = dict(zip(categories, color_assigment))
+
+        return palette

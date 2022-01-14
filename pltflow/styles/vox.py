@@ -28,6 +28,10 @@ style = {
         # Savefig properties
         "savefig.facecolor": "black",
         "savefig.edgecolor": "black",
+        "legend.loc": "best",
+        "legend.fontsize": "medium",
+        "legend.facecolor": "white",
+        "legend.framealpha": 0.5,
     },
     "styleParams": {
         "xticks": {"fontsize": 11, "fontweight": "bold"},

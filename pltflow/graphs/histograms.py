@@ -61,65 +61,36 @@ class hist(chart):
 
         self.mode = mode
 
-    def plot_one_category(self) -> None:
-        height = self.rcParams["figure.figsize"][1]
-        aspect = self.rcParams["figure.figsize"][0] / height
-        color = self.colors["hist"]["1cat"]
-
-        sns.displot(
-            self.df,
-            x=self.x,
-            height=height,
-            aspect=aspect,
-            kind=self.mode,
-            color=color,
-            **self.styleParams["hist"][self.mode],
-        )
-
-    def plot_multiple_categories(self, categories: list) -> None:
-
-        colors = self.colors["hist"]["ncats"]
-        height = self.rcParams["figure.figsize"][1]
-        aspect = self.rcParams["figure.figsize"][0] / height
-
-        i = 0
-        color_assigment = []
-
-        for category in categories:
-            if category in self.main_categories:
-                color_assigment += [colors[i % len(colors)]]
-                i += 1
-            else:
-                color_assigment += [self.colors["hist"]["grayed"]]
-
-        palette = dict(zip(categories, color_assigment))
-
-        sns.displot(
-            self.df,
-            x=self.x,
-            hue=self.z,
-            height=height,
-            aspect=aspect,
-            kind=self.mode,
-            palette=palette,
-            legend=False,
-            **self.styleParams["hist"][self.mode],
-        )
-
-        patches = create_legend_patches(palette)
-        plt.legend(handles=patches, loc="best")
-
     def show(self) -> None:
 
         plt.rcParams.update(self.rcParams)
 
         categories = self.get_hue_categories()
 
-        if len(categories) <= 1:
-            self.plot_one_category()
+        height = self.rcParams["figure.figsize"][1]
+        aspect = self.rcParams["figure.figsize"][0] / height
 
-        else:
-            self.plot_multiple_categories(categories)
+        mode = "single" if len(categories) <= 1 else "multiple"
+
+        params = {
+            "single": {"palette": [self.colors["hist"]["grayed"]]},
+            "multiple": {"palette": self.create_palette(categories), "hue": self.z},
+        }  # type: dict
+
+        sns.displot(
+            self.df,
+            x=self.x,
+            height=height,
+            aspect=aspect,
+            kind=self.mode,
+            legend=False,
+            **params[mode],
+            **self.styleParams["hist"][self.mode],
+        )
+
+        if len(categories) > 1:
+            patches = create_legend_patches(params[mode]["palette"])
+            plt.legend(handles=patches)
 
         self.display_chart_annotations()
         self.plot_padding((1.02, 1.2), (-0.01, -0.0))
