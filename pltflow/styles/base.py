@@ -32,6 +32,10 @@ style = {
         # Savefig properties
         "savefig.facecolor": "white",
         "savefig.edgecolor": "white",
+        "legend.loc": "best",
+        "legend.fontsize": "medium",
+        "legend.facecolor": "white",
+        "legend.framealpha": 0.5,
     },
     "styleParams": {
         "xticks": {"fontsize": 11, "fontname": MAIN_FONT},
@@ -62,8 +66,16 @@ style = {
             "xycoords": "axes fraction",
             "fontname": MAIN_FONT,
         },
-        "scatter_style": {"s": 40},
-        "line_style": {"linewidth": 1},
+        "scatter": {"s": 40},
+        "line": {"linewidth": 1},
+        "hist": {
+            "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
+            "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
+        },
     },
-    "colors": {"1cat": "tab:blue", "ncats": plt_tab_colors, "grayed": "lightgray"},
+    "colors": {
+        "plot": {"1cat": "tab:blue", "ncats": plt_tab_colors, "grayed": "lightgray"},
+        "hist": {"1cat": "tab:blue", "ncats": plt_tab_colors, "grayed": "lightgray"},
+    },
+
 }

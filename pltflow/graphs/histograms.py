@@ -92,6 +92,8 @@ class hist(chart):
             "multiple": {"palette": self.create_palette(categories), "hue": self.z},
         }  # type: dict
 
+        print( self.styleParams)
+
         sns.displot(
             self.df,
             x=self.x,
