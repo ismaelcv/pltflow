@@ -12,22 +12,28 @@ from pltflow.utils.styling import load_style
 class chart:
     def __init__(
         self,
-        data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
+        data: pd.DataFrame,
         x: str = "",
         y: str = "",
         style: str = "base",
-        mode: str = "default",
+        mode: str = "both",
         **kwargs: dict,
     ) -> None:
 
+        # This function includes initialization common for all the clases
+        self.initialize_plot_parameters(mode, style, kwargs)
+
+        # Initialize the plot for the specific class
+        self.prepare_data(data, x, y)
+
+    def initialize_plot_parameters(self, mode: str, style: str, kwargs: dict) -> None:
+        plt.rcParams.update(plt.rcParamsDefault)
+
         self.rcParams, self.styleParams, self.colors = load_style(style)
 
-        plt.rcParams.update(plt.rcParamsDefault)
         self.set_figsize()
 
         self.caps = False
-
-        self.set_parameters(data, x, y)
 
         self.z = ""  # type: str
         self.main_categories = []  # type: list
@@ -43,7 +49,7 @@ class chart:
         instance = self.__class__.__name__
         self.styleParams[instance][self.mode] = {**self.styleParams[instance][self.mode], **kwargs}
 
-    def set_parameters(
+    def prepare_data(
         self,
         data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
         x: str,

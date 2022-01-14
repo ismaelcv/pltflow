@@ -18,11 +18,26 @@ class hist(chart):
     Generic class to genererate an histogram in style
     """
 
-    def set_parameters(
+    def __init__(
+        self,
+        data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
+        x: str = "",
+        style: str = "base",
+        mode: str = "hist",
+        **kwargs: dict,
+    ) -> None:
+
+        # This function includes initialization common for all the clases
+        self.initialize_plot_parameters(mode, style, kwargs)
+
+        # Initialize the plot for the specific class
+        self.prepare_data(data, x)
+
+    def prepare_data(
         self,
         data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
         x: str,
-        y: str,
+        y: str = "",
     ) -> None:
         """
         This parameters are set for the case of scatterplots.
