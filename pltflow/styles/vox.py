@@ -1,4 +1,4 @@
-from pltflow.utils.colors import plt_tab_colors
+from pltflow.utils.colors import colors
 
 style = {
     "rcParams": {
@@ -59,7 +59,7 @@ style = {
         },
     },
     "colors": {
-        "plot": {"1cat": "#aed7eb", "ncats": plt_tab_colors, "grayed": "#566a6b"},
-        "hist": {"1cat": "white", "ncats": plt_tab_colors, "grayed": "#566a6b"},
+        "plot": colors["vox_pallete"],
+        "hist": colors["base_pallete"],
     },
 }

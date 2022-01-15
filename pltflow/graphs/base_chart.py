@@ -264,17 +264,17 @@ class chart:
 
     def create_palette(self, categories: list) -> dict:
 
-        colors = self.colors["hist"]["ncats"]
+        colors = self.colors["hist"]
 
         i = 0
         color_assigment = []
 
         for category in categories:
             if category in self.main_categories:
-                color_assigment += [colors[i % len(colors)]]
+                color_assigment += [colors[:-1][i % len(colors)]]
                 i += 1
             else:
-                color_assigment += [self.colors["hist"]["grayed"]]
+                color_assigment += [colors[-1]]
 
         palette = dict(zip(categories, color_assigment))
 

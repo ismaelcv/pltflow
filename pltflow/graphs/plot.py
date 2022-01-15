@@ -32,7 +32,7 @@ class plot(chart):
 
     def plot_one_category(self) -> None:
 
-        color = self.colors["1cat"]
+        color = self.colors[0]
 
         if self.mode in ["line", "default"]:
             plt.plot(self.df[self.x], self.df[self.y], color=color, **self.styleParams["line_style"])
@@ -53,7 +53,7 @@ class plot(chart):
                     plt.plot(
                         x_axis,
                         y_axis,
-                        color=self.colors["grayed"],
+                        color=self.colors[-1],
                         **self.styleParams["lineshadow_style"],
                     )
 
@@ -62,7 +62,7 @@ class plot(chart):
                     plt.scatter(
                         x_axis,
                         y_axis,
-                        color=self.colors["grayed"],
+                        color=self.colors[-1],
                         **self.styleParams["scattershadow_style"],
                     )
 

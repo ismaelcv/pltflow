@@ -1,4 +1,4 @@
-from pltflow.utils.colors import plt_tab_colors
+from pltflow.utils.colors import colors
 
 MAIN_FONT = "monofur for powerline"
 
@@ -35,6 +35,10 @@ style = {
         # Savefig properties
         "savefig.facecolor": "white",
         "savefig.edgecolor": "white",
+        "legend.loc": "best",
+        "legend.fontsize": "medium",
+        "legend.facecolor": "white",
+        "legend.framealpha": 0.5,
     },
     "styleParams": {
         "xticks": {"fontsize": 13, "fontweight": "normal", "fontname": MAIN_FONT},
@@ -57,6 +61,13 @@ style = {
         },
         "scatter_style": {"s": 20},
         "line_style": {"linewidth": 1.2},
+        "hist": {
+            "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
+            "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
+        },
     },
-    "colors": {"1cat": "#244796", "ncats": plt_tab_colors, "grayed": "#9c9b92"},
+    "colors": {
+        "plot": colors["innocent_pallete"],
+        "hist": colors["innocent_pallete"],
+    },
 }

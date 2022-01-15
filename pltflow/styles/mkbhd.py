@@ -1,4 +1,4 @@
-from pltflow.utils.colors import plt_tab_colors
+from pltflow.utils.colors import colors
 
 style = {
     "rcParams": {
@@ -31,6 +31,10 @@ style = {
         # Savefig properties
         "savefig.facecolor": "black",
         "savefig.edgecolor": "black",
+        "legend.loc": "best",
+        "legend.fontsize": "medium",
+        "legend.facecolor": "white",
+        "legend.framealpha": 0.5,
     },
     "styleParams": {
         "xticks": {"fontsize": 11, "fontweight": "bold"},
@@ -58,8 +62,15 @@ style = {
             "xy": (0.00, 1.085),
             "xycoords": "axes fraction",
         },
-        "scatter_style": {"s": 30},
-        "line_style": {"linewidth": 1.5},
+        "scatter": {"s": 30},
+        "line": {"linewidth": 1.5},
+        "hist": {
+            "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
+            "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
+        },
     },
-    "colors": {"1cat": "red", "ncats": plt_tab_colors, "grayed": "lightgray"},
+    "colors": {
+        "plot": colors["mkbhd_pallete"],
+        "hist": colors["mkbhd_pallete"],
+    },
 }

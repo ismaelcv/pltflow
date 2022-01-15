@@ -1,4 +1,4 @@
-from pltflow.utils.colors import plt_tab_colors
+from pltflow.utils.colors import colors
 
 MAIN_FONT = "Roboto mono for powerline"
 
@@ -74,8 +74,7 @@ style = {
         },
     },
     "colors": {
-        "plot": {"1cat": "tab:blue", "ncats": plt_tab_colors, "grayed": "lightgray"},
-        "hist": {"1cat": "tab:blue", "ncats": plt_tab_colors, "grayed": "lightgray"},
+        "plot": colors["base_pallete"],
+        "hist": colors["base_pallete"],
     },
-
 }

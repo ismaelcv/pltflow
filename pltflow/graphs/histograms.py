@@ -88,11 +88,9 @@ class hist(chart):
         mode = "single" if len(categories) <= 1 else "multiple"
 
         params = {
-            "single": {"palette": [self.colors["hist"]["grayed"]]},
+            "single": {"palette": [self.colors["hist"][-1]]},
             "multiple": {"palette": self.create_palette(categories), "hue": self.z},
         }  # type: dict
-
-        print( self.styleParams)
 
         sns.displot(
             self.df,
