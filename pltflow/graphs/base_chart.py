@@ -10,6 +10,64 @@ from pltflow.utils.styling import load_style
 
 
 class chart:
+    def __init__(
+        self,
+        data: pd.DataFrame,
+        x: Union[str, list],
+        y: str,
+        style: str = "base",
+        markers: bool = True,
+        **kwargs: dict,
+    ) -> None:
+
+        self.markers = markers
+
+        self.mode = self.__class__.__name__.split("_")[0]  # name of the class
+
+        # This function includes initialization common for all the clases
+        self.initialize_plot_parameters(style, kwargs)
+
+        # Initialize the plot for the specific class
+        self.prepare_data(data, x, y)
+
+    def prepare_data(
+        self,
+        data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
+        x: Union[str, list],
+        y: str,
+    ) -> None:
+        """
+        This parameters are set for the case of scatterplots.
+        In this mode the only valid input is a dataframe
+        """
+
+        if isinstance(data, pd.DataFrame) and isinstance(x, str):
+            self.df = data
+            if x in self.df.columns:
+                self.x = x
+                self.set_xlabel(x)
+            else:
+                raise ValueError("X should be a valid column name")
+
+        elif isinstance(data, pd.DataFrame) and isinstance(x, list):
+            self.df = data.loc[:, x].melt(var_name="_key", value_name="_value")
+
+            self.x = "_value"
+            self.color_by("_key")
+            self.set_xlabel("")
+
+        else:
+            raise ValueError(
+                """
+            data must have the following types combinations:
+            * data = pd.DataFrame, x = str
+            * data = pd.DataFrame, x = list
+            """
+            )
+
+        self.y = y
+        self.set_ylabel(self.y)
+
     def initialize_plot_parameters(self, style: str, kwargs: dict) -> None:
         plt.rcParams.update(plt.rcParamsDefault)
 
@@ -31,35 +89,6 @@ class chart:
 
         instance = self.__class__.__name__.split("_")[0]
         self.styleParams[instance] = {**self.styleParams[instance], **kwargs}
-
-    def prepare_data(
-        self,
-        data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
-        x: str,
-        y: str,
-    ) -> None:
-        """
-        This parameters are set for the case of scatterplots.
-        In this mode the only valid input is a dataframe
-        """
-
-        if isinstance(data, pd.DataFrame):
-            self.df = data
-        else:
-            raise ValueError("data must be a dataframe")
-
-        if x in self.df.columns:
-            self.x = x
-        else:
-            raise ValueError("X and Y should be a valid column name")
-
-        if y in self.df.columns:
-            self.y = y
-        else:
-            raise ValueError("X and Y should be a valid column name")
-
-        self.set_xlabel(x)
-        self.set_ylabel(y)
 
     def upper(self, caps: bool = True) -> chart:
         """
