@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from matplotlib import pyplot as plt
-
+import seaborn as sns
 from pltflow.graphs.base_chart import chart
 
 
@@ -49,6 +49,8 @@ class plot(chart):
                 y_axis = self.df[self.y][self.df[self.z] == category]
 
                 if self.mode in ["line", "default"]:
+
+                    sns.lineplot()
 
                     plt.plot(
                         x_axis,
