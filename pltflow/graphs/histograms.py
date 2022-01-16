@@ -21,14 +21,15 @@ class hist(chart):
     def __init__(
         self,
         data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
-        x: str = "",
+        x: Union[str, list],
         style: str = "base",
-        mode: str = "hist",
         **kwargs: dict,
     ) -> None:
 
+        self.mode = self.__class__.__name__.split("_")[0]  # name of the class
+
         # This function includes initialization common for all the clases
-        self.initialize_plot_parameters(mode, style, kwargs)
+        self.initialize_plot_parameters(style, kwargs)
 
         # Initialize the plot for the specific class
         self.prepare_data(data, x)
@@ -36,7 +37,7 @@ class hist(chart):
     def prepare_data(
         self,
         data: Union[pd.DataFrame, list, np.ndarray, pd.Series],
-        x: str,
+        x: Union[str, list],
         y: str = "",
     ) -> None:
         """
@@ -44,37 +45,41 @@ class hist(chart):
         In this mode the only valid input is a dataframe
         """
 
-        if isinstance(data, pd.DataFrame):
+        if isinstance(data, pd.DataFrame) and isinstance(x, str):
             self.df = data
             if x in self.df.columns:
                 self.x = x
                 self.set_xlabel(x)
             else:
                 raise ValueError("X should be a valid column name")
-        else:
+
+        elif isinstance(data, (pd.Series, np.ndarray, list)):
             check_array_is_numeric(data)
             self.df = pd.DataFrame({"x": data})
             self.x = "x"
             self.set_xlabel("")
 
+        elif isinstance(x, list):
+            self.df = data.loc[:, x].melt(var_name="_key", value_name="_value")
+
+            self.x = "_value"
+            self.color_by("_key")
+            self.set_xlabel("")
+
+        else:
+            raise ValueError(
+                """
+            data must have the following types combinations:
+            * data = pd.DataFrame, x = str
+            * data = pd.Series, x = str
+            * data = np.ndarray, x = str
+            * data = list, x = str
+            * data = pd.DataFrame, x = list
+            """
+            )
+
         self.y = ""
         self.set_ylabel(self.y)
-
-    def _set_mode(self, mode: str) -> None:
-        """
-        default: "hist"
-        kde: "Kernell density estimator"
-        """
-
-        if mode in ["default", "hist"]:
-            mode = "hist"
-            self.set_ylabel("frecuency")
-        elif mode in ["kde"]:
-            self.set_ylabel("density")
-        else:
-            raise ValueError("mode must be either 'default' (hist)' or 'kde'")
-
-        self.mode = mode
 
     def show(self) -> None:
 
@@ -92,6 +97,7 @@ class hist(chart):
             "multiple": {"palette": self.create_palette(categories), "hue": self.z},
         }  # type: dict
 
+        print(self.styleParams[self.mode])
         sns.displot(
             self.df,
             x=self.x,
@@ -100,7 +106,7 @@ class hist(chart):
             kind=self.mode,
             legend=False,
             **params[mode],
-            **self.styleParams["hist"][self.mode],
+            **self.styleParams[self.mode],
         )
 
         if len(categories) > 1:
@@ -113,49 +119,5 @@ class hist(chart):
         plt.show()
 
 
-class hist_tabular(hist):
-
-    """
-    Generic class to genererate an histogram in style
-    """
-
-    def __init__(
-        self,
-        data: pd.DataFrame,
-        x: Union[str, list],
-        style: str = "base",
-        mode: str = "hist",
-        **kwargs: dict,
-    ) -> None:
-
-        # This function includes initialization common for all the clases
-        self.initialize_plot_parameters(mode, style, kwargs)
-
-        # Initialize the plot for the specific class
-        self.prepare_data(data, x)
-
-    def prepare_data(
-        self,
-        data: pd.DataFrame,
-        x: Union[str, list],
-        y: str = "",
-    ) -> None:
-        """
-        This parameters are set for the case of scatterplots.
-        In this mode the only valid input is a dataframe
-        """
-
-        if isinstance(x, list):
-            self.df = data.loc[:, x].melt(var_name="_key", value_name="_value")
-
-            self.x = "_value"
-            self.color_by("_key")
-            self.set_xlabel("")
-
-        else:
-            self.df = pd.DataFrame({"x": data[x]})
-            self.x = "x"
-            self.set_xlabel("")
-
-        self.y = ""
-        self.set_ylabel(self.y)
+class kde(hist):
+    ...

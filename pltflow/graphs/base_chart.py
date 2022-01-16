@@ -10,23 +10,7 @@ from pltflow.utils.styling import load_style
 
 
 class chart:
-    def __init__(
-        self,
-        data: pd.DataFrame,
-        x: str = "",
-        y: str = "",
-        style: str = "base",
-        mode: str = "both",
-        **kwargs: dict,
-    ) -> None:
-
-        # This function includes initialization common for all the clases
-        self.initialize_plot_parameters(mode, style, kwargs)
-
-        # Initialize the plot for the specific class
-        self.prepare_data(data, x, y)
-
-    def initialize_plot_parameters(self, mode: str, style: str, kwargs: dict) -> None:
+    def initialize_plot_parameters(self, style: str, kwargs: dict) -> None:
         plt.rcParams.update(plt.rcParamsDefault)
 
         self.rcParams, self.styleParams, self.colors = load_style(style)
@@ -37,7 +21,6 @@ class chart:
 
         self.z = ""  # type: str
         self.main_categories = []  # type: list
-        self._set_mode(mode)
 
         self.set_title("")
         self.set_subtitle("")
@@ -47,7 +30,7 @@ class chart:
     def set_kwargs(self, **kwargs: dict) -> None:
 
         instance = self.__class__.__name__.split("_")[0]
-        self.styleParams[instance][self.mode] = {**self.styleParams[instance][self.mode], **kwargs}
+        self.styleParams[instance] = {**self.styleParams[instance], **kwargs}
 
     def prepare_data(
         self,
@@ -85,13 +68,6 @@ class chart:
         self.caps = caps
 
         return self
-
-    def _set_mode(self, mode: str) -> None:
-
-        if mode in ["default", "scatter", "line"]:
-            self.mode = mode
-        else:
-            raise ValueError("mode must be either 'default', 'scatter' or 'line'")
 
     def set_yticks(self, positions: list, **kwargs: dict) -> chart:
         self.styleParams["yticks"] = {**self.styleParams["yticks"], **{"ticks": positions}, **kwargs}
