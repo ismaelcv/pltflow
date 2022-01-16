@@ -59,12 +59,10 @@ style = {
             "xycoords": "axes fraction",
             "fontname": "monofur for powerline",
         },
-        "scatter_style": {"s": 20},
-        "line_style": {"linewidth": 1.2},
-        "hist": {
-            "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
-            "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
-        },
+        "scatter": {"s": 20},
+        "line": {"linewidth": 1.2},
+        "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
+        "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
     },
     "colors": {
         "plot": colors["innocent_pallete"],
