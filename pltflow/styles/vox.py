@@ -52,7 +52,9 @@ style = {
             "xycoords": "axes fraction",
         },
         "scatter": {"s": 30},
-        "line": {"linewidth": 2},
+        "line": {
+            "linewidth": 2,
+        },
         "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
         "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
     },
