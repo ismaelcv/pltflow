@@ -6,7 +6,7 @@
 * It makes use of predifined styles to completely automate the chart creation process
 * It also uses the concept of pipelines to create charts as if one is following a recipe
 
-``pltflow`` is not intended for complex plots, but to make beautiful plots in a quick and clean way.
+``pltflow`` is not intended for quick and beautiful plots.
 You dont need to know anything about styling to make a pretty chart. But of course you can modify any parameter using matplotlib/seaborn arguments.
 <br/>
 
