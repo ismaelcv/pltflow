@@ -39,7 +39,7 @@ class line(chart):
                 **color_params[mode],
                 **self.styleParams[self.mode],
             )
-
+        #TODO: add optional markes
             for category in self.main_categories:
                 df = self.df[self.df[self.z] == category]
                 plt.scatter(df[self.x], df[self.y], color=color_params[mode]["palette"][category], marker="s")
@@ -47,6 +47,9 @@ class line(chart):
             print(color_params[mode])
 
         if self.mode == "scatter":
+
+            print(self.mode, self.styleParams[self.mode])
+
             sns.scatterplot(
                 **common_params,
                 **color_params[mode],

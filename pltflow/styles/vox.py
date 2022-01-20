@@ -57,11 +57,12 @@ style = {
         },
         "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
         "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
+        "scatter": {"s": 40, "alpha": 0.8, "linewidth": 0},
     },
     "colors": {
         "line": colors["vox_pallete"],
         "hist": colors["base_pallete"],
         "kde": colors["base_pallete"],
-        "scatter": colors["vox_pallete"],
+        "scatter": colors["base_pallete"],
     },
 }
