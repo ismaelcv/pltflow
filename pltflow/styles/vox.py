@@ -53,13 +53,15 @@ style = {
         },
         "scatter": {"s": 30},
         "line": {
-            "linewidth": 2,
+            "linewidth": 3,
         },
         "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
         "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
     },
     "colors": {
-        "plot": colors["vox_pallete"],
+        "line": colors["vox_pallete"],
         "hist": colors["base_pallete"],
+        "kde": colors["base_pallete"],
+        "scatter": colors["vox_pallete"],
     },
 }

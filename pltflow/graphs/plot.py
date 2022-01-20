@@ -39,6 +39,13 @@ class line(chart):
                 **color_params[mode],
                 **self.styleParams[self.mode],
             )
+
+            for category in self.main_categories:
+                df = self.df[self.df[self.z] == category]
+                plt.scatter(df[self.x], df[self.y], color=color_params[mode]["palette"][category], marker="s")
+
+            print(color_params[mode])
+
         if self.mode == "scatter":
             sns.scatterplot(
                 **common_params,
@@ -47,7 +54,11 @@ class line(chart):
             )
 
         if len(categories) > 1:
-            patches = create_legend_patches(color_params[mode]["palette"])
+
+            patches = create_legend_patches(
+                color_params[mode]["palette"], grayed_color=self.colors[self.mode][-1]
+            )
+
             plt.legend(handles=patches)
 
         self.display_chart_annotations()

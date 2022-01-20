@@ -109,7 +109,7 @@ class hist(chart):
         )
 
         if len(categories) > 1:
-            patches = create_legend_patches(params[mode]["palette"])
+            patches = create_legend_patches(params[mode]["palette"], grayed_color=self.colors[self.mode][-1])
             plt.legend(handles=patches)
 
         self.display_chart_annotations()

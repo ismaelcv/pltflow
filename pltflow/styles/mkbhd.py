@@ -68,7 +68,9 @@ style = {
         "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
     },
     "colors": {
-        "plot": colors["mkbhd_pallete"],
+        "line": colors["mkbhd_pallete"],
         "hist": colors["mkbhd_pallete"],
+        "kde": colors["mkbhd_pallete"],
+        "scatter": colors["mkbhd_pallete"],
     },
 }

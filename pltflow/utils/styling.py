@@ -16,11 +16,11 @@ def load_style(style: str) -> Tuple[dict, dict, dict]:
     return style_module["rcParams"], style_module["styleParams"], style_module["colors"]
 
 
-def create_legend_patches(colors: dict) -> list:
+def create_legend_patches(colors: dict, grayed_color: str = "") -> list:
     """
     This function creates a legend for the chart.
     """
 
-    patches = [mpatches.Patch(color=colors[key], label=key) for key in colors]
+    patches = [mpatches.Patch(color=colors[key], label=key) for key in colors if colors[key] != grayed_color]
 
     return patches

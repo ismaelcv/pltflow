@@ -65,7 +65,9 @@ style = {
         "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
     },
     "colors": {
-        "plot": colors["innocent_pallete"],
+        "line": colors["innocent_pallete"],
         "hist": colors["innocent_pallete"],
+        "kde": colors["innocent_pallete"],
+        "scatter": colors["innocent_pallete"],
     },
 }

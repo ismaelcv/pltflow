@@ -269,7 +269,7 @@ class chart:
 
     def create_palette(self, categories: list) -> dict:
 
-        colors = self.colors["hist"]
+        colors = self.colors[self.mode]
 
         i = 0
         color_assigment = []
