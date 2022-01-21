@@ -51,7 +51,6 @@ style = {
             "xy": (0.00, 1.14),
             "xycoords": "axes fraction",
         },
-        "scatter": {"s": 30},
         "line": {
             "linewidth": 3,
         },

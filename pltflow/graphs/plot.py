@@ -22,7 +22,7 @@ class line(chart):
         mode = "single" if len(categories) <= 1 else "multiple"
 
         color_params = {
-            "single": {"palette": [self.colors["hist"][-1]]},
+            "single": {"palette": [self.colors[self.mode][0]]},
             "multiple": {"palette": self.create_palette(categories), "hue": self.z},
         }  # type: dict
 
@@ -34,17 +34,27 @@ class line(chart):
         }
 
         if self.mode == "line":
+
+            print(color_params[mode])
+
             sns.lineplot(
                 **common_params,
                 **color_params[mode],
                 **self.styleParams[self.mode],
             )
-        #TODO: add optional markes
-            for category in self.main_categories:
-                df = self.df[self.df[self.z] == category]
-                plt.scatter(df[self.x], df[self.y], color=color_params[mode]["palette"][category], marker="s")
 
-            print(color_params[mode])
+            if self.markers and self.z != "":
+
+                common_params["data"] = self.df[self.df[self.z].isin(self.main_categories)]
+
+                sns.scatterplot(
+                    **common_params,
+                    **color_params[mode],
+                    s=50,
+                    alpha=0.9,
+                    linewidth=0,
+                    marker="s",
+                )
 
         if self.mode == "scatter":
 
@@ -65,7 +75,7 @@ class line(chart):
             plt.legend(handles=patches)
 
         self.display_chart_annotations()
-        self.plot_padding((1.02, 1.2), (-0.01, -0.0))
+        self.plot_padding((1.02, 1.2), (-0.07, -0.2))
 
         plt.show()
 

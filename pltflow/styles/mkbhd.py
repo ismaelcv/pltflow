@@ -62,7 +62,7 @@ style = {
             "xy": (0.00, 1.085),
             "xycoords": "axes fraction",
         },
-        "scatter": {"s": 30},
+        "scatter": {"s": 30, "alpha": 0.8, "linewidth": 0},
         "line": {"linewidth": 1.5},
         "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
         "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},

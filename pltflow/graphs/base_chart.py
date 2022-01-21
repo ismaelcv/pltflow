@@ -99,7 +99,7 @@ class chart:
         return self
 
     # TODO: add a function set_xlim()
-
+    # TODO add set_pallete()
     def set_yticks(self, positions: list, **kwargs: dict) -> chart:
         self.styleParams["yticks"] = {**self.styleParams["yticks"], **{"ticks": positions}, **kwargs}
         return self
