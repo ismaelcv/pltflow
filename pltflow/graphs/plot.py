@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import seaborn as sns
+import pandas as pd
 from matplotlib import pyplot as plt
 
 from pltflow.graphs.base_chart import chart
 from pltflow.utils.styling import create_legend_patches
 
 
-class line(chart):
+class lines(chart):
 
     """
     Generic class to genererate a plt graph
@@ -19,58 +19,19 @@ class line(chart):
 
         categories = self.get_hue_categories()
 
-        mode = "single" if len(categories) <= 1 else "multiple"
+        palette = self.create_palette(categories)
 
-        color_params = {
-            "single": {"palette": [self.colors[self.mode][0]]},
-            "multiple": {"palette": self.create_palette(categories), "hue": self.z},
-        }  # type: dict
+        self.plot(self.df, self.mode, categories, palette)
 
-        common_params = {
-            "data": self.df,
-            "x": self.x,
-            "y": self.y,
-            "legend": False,
-        }
+        if self.mode == "lines" and self.markers:
 
-        if self.mode == "line":
+            df = self.df if self.z == "" else self.df[self.df[self.z].isin(self.main_categories)]
 
-            print(color_params[mode])
-
-            sns.lineplot(
-                **common_params,
-                **color_params[mode],
-                **self.styleParams[self.mode],
-            )
-
-            if self.markers and self.z != "":
-
-                common_params["data"] = self.df[self.df[self.z].isin(self.main_categories)]
-
-                sns.scatterplot(
-                    **common_params,
-                    **color_params[mode],
-                    s=50,
-                    alpha=0.9,
-                    linewidth=0,
-                    marker="s",
-                )
-
-        if self.mode == "scatter":
-
-            print(self.mode, self.styleParams[self.mode])
-
-            sns.scatterplot(
-                **common_params,
-                **color_params[mode],
-                **self.styleParams[self.mode],
-            )
+            self.plot(df, "scatter", categories, palette)
 
         if len(categories) > 1:
 
-            patches = create_legend_patches(
-                color_params[mode]["palette"], grayed_color=self.colors[self.mode][-1]
-            )
+            patches = create_legend_patches(palette, grayed_color=self.colors[self.mode][-1])
 
             plt.legend(handles=patches)
 
@@ -79,23 +40,30 @@ class line(chart):
 
         plt.show()
 
-    #TODO: fix thisssss
-    def plot_multiple_categories(self, palette:dict) -> None:
+    def plot(self, df: pd.DataFrame, mode: str, categories: list, palette: dict) -> None:
 
-        for i, category in enumerate(self.main_categories):
+        if len(categories) > 1:
 
-            if len(self.main_categories) == 1:
-                color = self.colors["1cat"]
-            else:
-                color = colors[i % len(colors)]
+            for category in categories:
 
-            x_axis = self.df[self.x][self.df[self.z] == category]
-            y_axis = self.df[self.y][self.df[self.z] == category]
+                x_axis = df[self.x][df[self.z] == category]
+                y_axis = df[self.y][df[self.z] == category]
 
-            if self.mode in ["line", "default"]:
-                plt.plot(x_axis, y_axis, color=color, **self.styleParams["line_style"])
-            if self.mode in ["scatter", "default"]:
-                plt.scatter(x_axis, y_axis, color=color, **self.styleParams["scatter_style"])
+                if mode == "lines":
+                    plt.plot(x_axis, y_axis, color=palette[category], **self.styleParams[mode])
+                elif mode == "scatter":
+                    plt.scatter(x_axis, y_axis, color=palette[category], **self.styleParams[mode])
+        else:
+            x_axis = df[self.x]
+            y_axis = df[self.y]
 
-class scatter(line):
+            print(mode, self.styleParams[mode])
+
+            if mode == "lines":
+                plt.plot(x_axis, y_axis, color=self.colors[self.mode][0], **self.styleParams[mode])
+            elif mode == "scatter":
+                plt.scatter(x_axis, y_axis, color=self.colors[self.mode][0], **self.styleParams[mode])
+
+
+class scatter(lines):
     ...

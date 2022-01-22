@@ -51,17 +51,18 @@ style = {
             "xy": (0.00, 1.14),
             "xycoords": "axes fraction",
         },
-        "line": {
+        "lines": {
             "linewidth": 3,
         },
         "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
         "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
-        "scatter": {"s": 40, "alpha": 0.8, "linewidth": 0},
+        # TODO: make a set markers args function
+        "scatter": {"s": 50, "alpha": 0.8, "marker": "s"},
     },
     "colors": {
-        "line": colors["vox_pallete"],
-        "hist": colors["base_pallete"],
-        "kde": colors["base_pallete"],
-        "scatter": colors["base_pallete"],
+        "lines": colors["vox_palette"],
+        "hist": colors["base_palette"],
+        "kde": colors["base_palette"],
+        "scatter": colors["vox_palette"],
     },
 }

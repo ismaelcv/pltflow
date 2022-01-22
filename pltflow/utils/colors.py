@@ -16,8 +16,8 @@ tab_colors = [
 ]
 
 colors = {
-    "mkbhd_pallete": ["tab:red"] + tab_colors + ["lightgray"],
-    "base_pallete": ["tab:blue"] + tab_colors + ["lightgray"],
-    "vox_pallete": ["white"] + tab_colors + ["#566a6b"],
-    "innocent_pallete": ["#244796"] + tab_colors + ["#9c9b92"],
+    "mkbhd_palette": ["tab:red"] + tab_colors + ["lightgray"],
+    "base_palette": ["tab:blue"] + tab_colors + ["lightgray"],
+    "vox_palette": ["white"] + tab_colors + ["#566a6b"],
+    "innocent_palette": ["#244796"] + tab_colors + ["#9c9b92"],
 }
