@@ -79,6 +79,23 @@ class line(chart):
 
         plt.show()
 
+    #TODO: fix thisssss
+    def plot_multiple_categories(self, palette:dict) -> None:
+
+        for i, category in enumerate(self.main_categories):
+
+            if len(self.main_categories) == 1:
+                color = self.colors["1cat"]
+            else:
+                color = colors[i % len(colors)]
+
+            x_axis = self.df[self.x][self.df[self.z] == category]
+            y_axis = self.df[self.y][self.df[self.z] == category]
+
+            if self.mode in ["line", "default"]:
+                plt.plot(x_axis, y_axis, color=color, **self.styleParams["line_style"])
+            if self.mode in ["scatter", "default"]:
+                plt.scatter(x_axis, y_axis, color=color, **self.styleParams["scatter_style"])
 
 class scatter(line):
     ...
