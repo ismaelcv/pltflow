@@ -73,7 +73,7 @@ style = {
     },
     "colors": {
         "lines": colors["base_palette"],
-        "hist": colors["bbase_palettease_pallete"],
+        "hist": colors["base_palette"],
         "kde": colors["base_palette"],
         "scatter": colors["base_palette"],
     },
