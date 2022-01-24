@@ -38,9 +38,11 @@ class lines(chart):
         self.display_chart_annotations()
         self.plot_padding((1.02, 1.2), (-0.07, -0.2))
 
+        self.set_xylim()
+
         plt.show()
 
-    def plot(
+    def plot(  # pylint: disable=dangerous-default-value
         self, df: pd.DataFrame, mode: str, categories: list, palette: dict, markers_kwargs: dict = {}
     ) -> None:
 

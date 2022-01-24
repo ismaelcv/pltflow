@@ -10,7 +10,7 @@ from pltflow.utils.styling import load_style
 
 
 class chart:
-    def __init__(
+    def __init__(  # pylint: disable=dangerous-default-value
         self,
         data: pd.DataFrame,
         x: Union[str, list],
@@ -100,7 +100,6 @@ class chart:
 
         return self
 
-    # TODO: add a function set_xlim()
     # TODO add set_pallete()
     def set_yticks(self, positions: list, **kwargs: dict) -> chart:
         self.styleParams["yticks"] = {**self.styleParams["yticks"], **{"ticks": positions}, **kwargs}
@@ -288,3 +287,17 @@ class chart:
         palette = dict(zip(categories, color_assigment))
 
         return palette
+
+    def set_xlim(self, left: float, right: float) -> chart:
+        self.styleParams["xlim"] = (left, right)
+        return self
+
+    def set_ylim(self, bottom: float, top: float) -> chart:
+        self.styleParams["ylim"] = (bottom, top)
+        return self
+
+    def set_xylim(self) -> None:
+        if "xlim" in self.styleParams:
+            plt.xlim(self.styleParams["xlim"])
+        if "ylim" in self.styleParams:
+            plt.ylim(self.styleParams["ylim"])

@@ -115,6 +115,8 @@ class hist(chart):
         self.display_chart_annotations()
         self.plot_padding((1.02, 1.2), (-0.01, -0.0))
 
+        self.set_xylim()
+
         plt.show()
 
 
