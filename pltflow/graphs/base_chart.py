@@ -17,10 +17,12 @@ class chart:
         y: str,
         style: str = "base",
         markers: bool = True,
+        markers_kwargs: dict = {},
         **kwargs: dict,
     ) -> None:
 
         self.markers = markers
+        self.markers_kwargs = markers_kwargs
 
         self.mode = self.__class__.__name__.split("_")[0]  # name of the class
 

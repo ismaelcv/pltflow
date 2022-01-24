@@ -56,7 +56,6 @@ style = {
         },
         "kde": {"linewidth": 0.1, "fill": True, "alpha": 0.6},
         "hist": {"linewidth": 0.1, "bins": 40, "alpha": 0.6},
-        # TODO: make a set markers args function
         "scatter": {"s": 50, "alpha": 0.8, "marker": "s"},
     },
     "colors": {

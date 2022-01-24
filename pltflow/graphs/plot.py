@@ -27,7 +27,7 @@ class lines(chart):
 
             df = self.df if self.z == "" else self.df[self.df[self.z].isin(self.main_categories)]
 
-            self.plot(df, "scatter", categories, palette)
+            self.plot(df, "scatter", categories, palette, self.markers_kwargs)
 
         if len(categories) > 1:
 
@@ -40,7 +40,9 @@ class lines(chart):
 
         plt.show()
 
-    def plot(self, df: pd.DataFrame, mode: str, categories: list, palette: dict) -> None:
+    def plot(
+        self, df: pd.DataFrame, mode: str, categories: list, palette: dict, markers_kwargs: dict = {}
+    ) -> None:
 
         if len(categories) > 1:
 
@@ -52,7 +54,8 @@ class lines(chart):
                 if mode == "lines":
                     plt.plot(x_axis, y_axis, color=palette[category], **self.styleParams[mode])
                 elif mode == "scatter":
-                    plt.scatter(x_axis, y_axis, color=palette[category], **self.styleParams[mode])
+                    scatter_params = {**markers_kwargs, **self.styleParams[mode]}
+                    plt.scatter(x_axis, y_axis, color=palette[category], **scatter_params)
         else:
             x_axis = df[self.x]
             y_axis = df[self.y]
