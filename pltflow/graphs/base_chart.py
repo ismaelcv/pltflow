@@ -8,6 +8,9 @@ from matplotlib import pyplot as plt
 
 from pltflow.utils.styling import load_style
 
+# TODO fix the need to restart kernel
+# when changing the palette if removed old pallet remains
+
 
 class chart:
     def __init__(  # pylint: disable=dangerous-default-value
@@ -100,7 +103,35 @@ class chart:
 
         return self
 
-    # TODO add set_pallete()
+    def set_palette(self, palette: list) -> chart:
+
+        """
+        If one color is given, it will be used for all the categories.
+        If two:
+            * The first will be the main color
+            * The first will be also used as additional colors
+            * The second will be the grayed color
+        if 3 or more:
+            *the first will be the main color,
+            *The first to -1 will be replicated until there are at least 10 category colores
+            *The last will be the grayed color
+        """
+
+        if len(palette) == 0:
+            raise ValueError("Palette must have at least one color")
+
+        if len(palette) == 1:
+            palette = palette * 12
+
+        if len(palette) == 2:
+            palette = [palette[0]] * 11 + [palette[1]]
+
+        if (len(palette) > 2) and (len(palette) < 12):
+            palette = palette[0:-1] * 4 + [palette[-1]]
+
+        self.colors[self.mode] = palette
+        return self
+
     def set_yticks(self, positions: list, **kwargs: dict) -> chart:
         self.styleParams["yticks"] = {**self.styleParams["yticks"], **{"ticks": positions}, **kwargs}
         return self

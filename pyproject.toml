@@ -18,11 +18,12 @@ disable = [
     "fixme",
 	"E0611",
 	"E0401",
-     "too-many-locals",
-     "R1729",
-     "too-many-instance-attributes",
-     "super-init-not-called",
-     "attribute-defined-outside-init",
+    "too-many-locals",
+    "R1729",
+    "too-many-instance-attributes",
+    "super-init-not-called",
+    "attribute-defined-outside-init",
+    "too-many-public-methods",
 ]
 
 [tool.pylint.typecheck]
