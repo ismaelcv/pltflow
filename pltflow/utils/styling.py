@@ -1,4 +1,4 @@
-import importlib
+from importlib import import_module, reload
 from typing import Tuple
 
 import matplotlib.patches as mpatches
@@ -6,10 +6,9 @@ import matplotlib.patches as mpatches
 
 def load_style(style: str) -> Tuple[dict, dict, dict]:
 
-    importlib.invalidate_caches()
-
     try:
-        style_module = importlib.import_module(f"pltflow.styles.{style}").style.copy()  # type: ignore
+        style_module = reload(import_module(f"pltflow.styles.{style}")).style  # type: ignore
+
     except ModuleNotFoundError as no_module_with_that_name:
         raise ModuleNotFoundError(f"Style {style} not found") from no_module_with_that_name
 

@@ -8,9 +8,6 @@ from matplotlib import pyplot as plt
 
 from pltflow.utils.styling import load_style
 
-# TODO fix the need to restart kernel
-# when changing the palette if removed old pallet remains
-
 
 class chart:
     def __init__(  # pylint: disable=dangerous-default-value
