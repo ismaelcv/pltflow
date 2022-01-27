@@ -21,6 +21,20 @@ class chart:
         **kwargs: dict,
     ) -> None:
 
+        """
+                The initializer of the chart class is intended for line and scatterplots.
+
+                1) It takes an pandas datafrane as main input.
+        `       2) It can plot by two different modes:
+                    a) Tabular: by specifiying a list of colums in the dataframe to plot and y colum to plot
+                    b) Single: by specifying a column in the dataframe to plot and y colum to plot
+                3) Styles are defined in the plt,flow/ styles module. They are specified as a st
+                4) Markers are only used for the line plot. in case markers are needed for the plot
+                5) markers paramteres can be specified as a dictionary on markers_kwargs
+                6) kwargs can modify scatter/line plot parameters accoriding to matplotlib inputs
+
+        """
+
         self.markers = markers
         self.markers_kwargs = markers_kwargs
 
