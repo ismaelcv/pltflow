@@ -9,6 +9,7 @@ venv
 data
 .idea
 example_repos/
+old_distributions/
 
 desktop.ini
 
