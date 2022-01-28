@@ -13,7 +13,7 @@ additional_dependencies = {
     "dev": ["black>=21.9b0", "pre-commit>=2.15.0", "pytest>=6.2.1", "pylint>=2.7.4", "jupyterlab", "twine"],
 }
 
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 DESCRIPTION = "A matplotlib/seaborn wrapper to create beautiful plots with predefined styles using pipelines"
 
 with open("README.md", "r", encoding="utf8") as fh:
