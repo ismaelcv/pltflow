@@ -10,11 +10,14 @@ from pltflow.utils.styling import create_legend_patches
 class lines(chart):
 
     """
-    Generic class to genererate a plt graph
+    Generic class to genererate a line plot
+
+
     """
 
     def show(self) -> None:
 
+        # load rcParams
         plt.rcParams.update(self.rcParams)
 
         categories = self.get_hue_categories()
