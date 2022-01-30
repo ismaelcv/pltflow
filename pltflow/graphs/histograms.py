@@ -26,6 +26,18 @@ class hist(chart):
         **kwargs: dict,
     ) -> None:
 
+        """
+        This initializer histograms.
+
+        1) It can work by two different ways:
+            a) taking a dataframe and a column name (or list of column names) to plot
+            b) taking a List, np array or pd.Series and plot one array individualy
+ 
+
+        2) Styles are defined in the plt,flow/ styles module. They are specified as a st
+        3) kwargs can modify hist parameters according to matplotlib inputs
+        """
+
         self.mode = self.__class__.__name__.split("_")[0]  # name of the class
 
         # This function includes initialization common for all the clases
