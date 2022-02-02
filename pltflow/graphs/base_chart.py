@@ -85,6 +85,13 @@ class chart:
         self.set_ylabel(self.y)
 
     def initialize_plot_parameters(self, style: str, kwargs: dict) -> None:
+        """
+        This function initalizes the plot parameters into self, including:
+        rcParams, styleParams, colors, markers
+        It also set main_categories, z , title and subtitle as empty
+        Additionally it set the kwargs for the display function
+        All this initialization is common for all types of plots
+        """
         plt.rcParams.update(plt.rcParamsDefault)
 
         self.rcParams, self.styleParams, self.colors = load_style(style)

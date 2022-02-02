@@ -32,7 +32,7 @@ class hist(chart):
         1) It can work by two different ways:
             a) taking a dataframe and a column name (or list of column names) to plot
             b) taking a List, np array or pd.Series and plot one array individualy
- 
+
 
         2) Styles are defined in the plt,flow/ styles module. They are specified as a st
         3) kwargs can modify hist parameters according to matplotlib inputs
@@ -133,4 +133,9 @@ class hist(chart):
 
 
 class kde(hist):
+
+    """
+    Generic class to genererate an kde distribution in style
+    """
+
     ...
