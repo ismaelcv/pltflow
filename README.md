@@ -34,6 +34,7 @@ pip install pltflow
 * It uses pipeline to convey the 'recipe' of the chart
 
  ```bash
+ import pltflow.charts as flow
 
 (
     flow                                                            # from the pltflow package
