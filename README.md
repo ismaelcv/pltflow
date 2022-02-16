@@ -4,7 +4,7 @@
 
 * ``pltflow`` is a wrapper for matplotlib/seaborn to create beautiful charts
 * It makes use of predifined styles to completely automate the chart creation process
-* It also uses the concept of pipelines to create charts as if one is following a recipe
+* It also uses the concept of pipelines to create charts as following a recipe
 
 ``pltflow`` is not intended for quick and beautiful plots.
 You dont need to know anything about styling to make a pretty chart. But of course you can modify any parameter using matplotlib/seaborn arguments.
