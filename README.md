@@ -31,7 +31,7 @@ pip install pltflow
 ## 🔨 Usage&nbsp;
 
 *``pltflow`` works with pandas dataframes as data source
-* It uses pipeline to convey the 'recipe' of the chart
+* It uses pipelines to convey the 'recipe' of the chart
 
  ```bash
  import pltflow.charts as flow
