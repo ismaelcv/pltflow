@@ -67,7 +67,7 @@ But more are coming soon!
 
 ## 🐜 &nbsp; Found a bug? Missing a specific feature?
 
-Feel free to **file a new issue** 📫&nbsp with a respective title and description issue on the ``pltflow`` repository: [ismaelcv](https://github.com/ismaelcv/pltflow).
+Feel free to **file a new issue** 📫&nbsp with a respective title and description issue on the ``pltflow`` repository:  [ismaelcv](https://github.com/ismaelcv/pltflow).
 
 <br/>
 
