@@ -50,7 +50,7 @@ pip install pltflow
     .set_xticks(np.arange(2006, 2011))              # set the spacing of the x axis labels
     .show()                                         # SHOW!!! the graph is ready!
 )
-
+ 
 ```
 <br/>    
 
