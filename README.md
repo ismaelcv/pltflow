@@ -70,7 +70,7 @@ But more are coming soon!
 
 Feel free to **file a new issue** 📫&nbsp with a respective title and description issue on the ``pltflow`` repository:  [ismaelcv](https://github.com/ismaelcv/pltflow).
 
-<br/>
+<br/> 
 
 ## 📘&nbsp; License
 ``pltflow`` is released under the GNU Lesser General Public License (LGPL) license. All accompanying documentation and manual are released under the [Creative Commons BY-SA 4.0 license](https://creativecommons.org/licenses/).
