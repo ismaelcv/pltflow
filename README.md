@@ -55,13 +55,12 @@ pip install pltflow
 ```
 <br/>    
 
-Currently there are 4 predifined styles: base, vox, mkbhd, and innocent.
-
+Currently there are 4 predifined styles: base, vox, mkbhd, and innocent
 
 ![styles](https://github.com/ismaelcv/pltflow/blob/main/images/styles_sample.png?raw=true)
 
 
-
+ 
 
 But more are coming soon!
 <br/>
