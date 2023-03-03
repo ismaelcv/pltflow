@@ -53,7 +53,7 @@ pip install pltflow
 )
 
 ```
-<br/>    
+<br/>
 
 Currently there are 4 predifined styles: base, vox, mkbhd, and innocent
 
