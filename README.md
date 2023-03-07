@@ -19,7 +19,7 @@ You dont need to know anything about styling to make a pretty chart. But of cour
 pip install pltflow
 ```
 <br/>
-
+ 
 ## 📌&nbsp; Requirements
 * python 3.6 or above
 * matplotlib 2.2 or above
