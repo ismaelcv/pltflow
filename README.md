@@ -26,7 +26,7 @@ pip install pltflow
 * seaborn 0.9.0 or above
 * pandas 1.0.0 or above
 
-<br/> 
+<br/>  
 
 ## 🔨 Usage&nbsp;
 
