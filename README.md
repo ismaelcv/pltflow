@@ -63,7 +63,7 @@ Currently there are 4 predifined styles: base, vox, mkbhd, and innocent
   
 
 But more are coming soon!
-<br/>
+<br/> 
 
 ## 🐜 &nbsp; Found a bug? Missing a specific feature?
 
