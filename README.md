@@ -1,6 +1,6 @@
 # ``pltflow``
 
-## What is ``pltflow``?
+## What is ``pltflow``? 
 
 * ``pltflow`` is a wrapper for matplotlib/seaborn to create beautiful charts
 * It makes use of predifined styles to completely automate the chart creation process
